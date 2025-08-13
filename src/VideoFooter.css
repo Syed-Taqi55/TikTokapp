@@ -1,0 +1,11 @@
+.videoFooter {
+  position: absolute;
+  bottom: 60px;
+  color: white;
+  padding: 20px;
+}
+
+.videoFooter_music {
+  display: flex;
+  align-items: center;
+}
