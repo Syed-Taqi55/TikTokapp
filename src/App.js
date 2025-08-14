@@ -1,48 +1,20 @@
-import React, { useEffect, useState } from "react";
-import Video from "./Videos";
-import axios from "axios";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import GetPage from "./getVideo";
+import PostPage from "./postvideo";
 
 function App() {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(true); // 👈 Loading state
-
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await axios.get("http://localhost:8080/v2/posts");
-        setVideos(response.data);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      } finally {
-        setLoading(false); // 👈 Stop loading after fetch
-      }
-    }
-
-    fetchPosts();
-  }, []);
-
   return (
-    <div className="app">
-      <div className="app__videos">
-        {loading ? (
-          <div className="loading">Loading videos...</div> // 👈 Loading UI
-        ) : (
-          videos.map(({ url, channel, description, song, likes, messages, shares }) => (
-            <Video
-              key={url} // 👈 Add a key for React list rendering
-              url={url}
-              username={channel}
-              description={description}
-              song={song || "Default Song Title"} // 👈 Fallback for missing song
-              likes={likes}
-              comments={messages}
-              shares={shares}
-            />
-          ))
-        )}
-      </div>
-    </div>
+    <Router>
+      <nav>
+        <Link to="/videos">📹 View Videos</Link> | 
+        <Link to="/post">📝 Post Video</Link>
+      </nav>
+      <Routes>
+        <Route path="/videos" element={<GetPage />} />
+        <Route path="/post" element={<PostPage />} />
+      </Routes>
+    </Router>
   );
 }
 
