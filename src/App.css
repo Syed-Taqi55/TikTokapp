@@ -33,3 +33,10 @@ body, html, #root {
   position: relative;
   background-color: black;
 }
+.loading {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  padding: 20px;
+}
+

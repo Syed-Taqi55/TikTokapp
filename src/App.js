@@ -1,25 +1,46 @@
-import React, { useEffect,useState} from "react";
-import Videos from "./Videos";
+import React, { useEffect, useState } from "react";
+import Video from "./Videos";
 import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [videos,setVideos]=useState([]);
-  useEffect(()=>{
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true); // 👈 Loading state
+
+  useEffect(() => {
     async function fetchPosts() {
-      const response = await axios.get("http://localhost:8080/v2/posts");
-      setVideos(response.data);
-      return requestAnimationFrame;
+      try {
+        const response = await axios.get("http://localhost:8080/v2/posts");
+        setVideos(response.data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      } finally {
+        setLoading(false); // 👈 Stop loading after fetch
+      }
     }
+
     fetchPosts();
-  },[]);
-  console.log(videos);
+  }, []);
+
   return (
     <div className="app">
       <div className="app__videos">
-        <Videos />
-        <Videos />
-        <Videos />
+        {loading ? (
+          <div className="loading">Loading videos...</div> // 👈 Loading UI
+        ) : (
+          videos.map(({ url, channel, description, song, likes, messages, shares }) => (
+            <Video
+              key={url} // 👈 Add a key for React list rendering
+              url={url}
+              username={channel}
+              description={description}
+              song={song || "Default Song Title"} // 👈 Fallback for missing song
+              likes={likes}
+              comments={messages}
+              shares={shares}
+            />
+          ))
+        )}
       </div>
     </div>
   );

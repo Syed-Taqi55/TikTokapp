@@ -4,22 +4,22 @@ import ChatIcon from "@material-ui/icons/Chat";
 import ShareIcon from "@material-ui/icons/Share";
 import "./VideoSidebar.css";
 
-function VideoSidebar() {
+function VideoSidebar({ likes, comments, shares }) {
   const [liked, setLiked] = useState(false);
 
   return (
     <div className="videoSidebar">
       <div className="videoSidebar_button" onClick={() => setLiked(!liked)}>
         <FavoriteIcon style={{ color: liked ? "red" : "white" }} />
-        <p>100</p>
+        <p>{liked ? likes + 1 : likes}</p>
       </div>
       <div className="videoSidebar_button">
         <ChatIcon />
-        <p>20</p>
+        <p>{comments}</p>
       </div>
       <div className="videoSidebar_button">
         <ShareIcon />
-        <p>10</p>
+        <p>{shares}</p>
       </div>
     </div>
   );
