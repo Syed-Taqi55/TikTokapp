@@ -25,7 +25,7 @@ function PostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/v2/posts", formData);
+      await axios.post("https://tikktokvideopost.azurewebsites.net/v2/posts", formData);
       setStatus("✅ Video posted successfully!");
       setFormData({
         url: "",

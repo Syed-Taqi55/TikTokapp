@@ -10,7 +10,7 @@ function GetPage() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const response = await axios.get("http://localhost:8080/v2/posts");
+        const response = await axios.get("https://tikktokvideopost.azurewebsites.net/v2/posts");
         setVideos(response.data);
       } catch (error) {
         console.error("Error fetching videos:", error);
